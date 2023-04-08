@@ -14,6 +14,8 @@ import java.util.List;
 public class Clientes {
     private static String INSERT = "INSERT INTO cliente (nome) VALUES (?)";
     private static String SELECT_ALL = "SELECT * FROM cliente";
+    private static String UPDATE = "UPDATE cliente SET nome = ? WHERE id = ?";
+    private static String DELETE = "DELETE FROM cliente WHERE id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -24,6 +26,15 @@ public class Clientes {
     public Cliente salvar(Cliente cliente){
         jdbcTemplate.update(INSERT, new Object[]{cliente.getNome()});
         return cliente;
+    }
+
+    public Cliente atualizar(Cliente cliente){
+        jdbcTemplate.update(UPDATE, new Object[]{cliente.getNome(),cliente.getId()});
+                    return cliente;
+    }
+
+    public void deletar(Integer id){
+        jdbcTemplate.update(DELETE, new Object[]{id}); 
     }
 
     public List<Cliente> obterTodos() {
