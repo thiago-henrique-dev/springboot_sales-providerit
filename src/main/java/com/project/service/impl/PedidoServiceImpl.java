@@ -1,9 +1,9 @@
-package com.project.domain.service.impl;
+package com.project.service.impl;
 
 
 import org.springframework.stereotype.Service;
 import com.project.domain.repository.Pedidos;
-import com.project.domain.service.PedidoService;
+import com.project.service.PedidoService;
 
 @Service
 public class PedidoServiceImpl implements PedidoService {

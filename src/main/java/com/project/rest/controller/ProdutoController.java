@@ -1,4 +1,4 @@
-package com.project.domain.controller;
+package com.project.rest.controller;
 
 import com.project.domain.entity.Produto;
 import  com.project.domain.repository.Produtos;

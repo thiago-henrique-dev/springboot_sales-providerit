@@ -1,4 +1,4 @@
-package com.project.domain.service;
+package com.project.service;
 
 public interface PedidoService {
     
