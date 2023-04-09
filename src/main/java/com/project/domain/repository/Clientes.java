@@ -2,6 +2,7 @@ package com.project.domain.repository;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.domain.entity.Cliente;
@@ -33,19 +34,31 @@ public class Clientes {
                     return cliente;
     }
 
-    public void deletar(Integer id){
-        jdbcTemplate.update(DELETE, new Object[]{id}); 
+    public void deletar(Cliente c){
+        jdbcTemplate.update(DELETE, new Object[]{c}); 
+    }
+
+
+    public List<Cliente> buscarPorNome(String nome){
+        return jdbcTemplate.query(
+                SELECT_ALL.concat(" where nome like ? "),
+                new Object[]{"%" + nome + "%"},
+                obterClienteMapper());
     }
 
     public List<Cliente> obterTodos() {
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Cliente>() {
+        return jdbcTemplate.query(SELECT_ALL, obterClienteMapper());
+       
+    }
+    private RowMapper<Cliente> obterClienteMapper() {
+        return new RowMapper<Cliente>() {
             @Override
             public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
                 Integer id = resultSet.getInt("id");
                 String nome = resultSet.getString("nome");
                 return new Cliente(id, nome);
             }
-        });
+        };
     }
 
    
