@@ -1,12 +1,35 @@
 package com.project.domain.entity;
 
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "pedido")
 public class Pedido {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    private LocalDate data;
+
+    @Column(name = "data_pedido")
+    private LocalDate dataPedido;
+
+    @Column(name = "total", length = 20, precision = 2)
     private BigDecimal total;
 
     public Integer getId() {
@@ -23,11 +46,11 @@ public class Pedido {
     }
 
     public LocalDate getData() {
-        return data;
+        return dataPedido;
     }
 
     public void setData(LocalDate data) {
-        this.data = data;
+        this.dataPedido = data;
     }
 
     public BigDecimal getTotal() {
