@@ -21,27 +21,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.project.domain")
 
 public class VendasApplication {
-
-  @Bean
-  public CommandLineRunner init(
-    @Autowired Clientes clientes,
-    @Autowired Pedidos pedidos
-  ) {
-    return args -> {
-      System.out.println("Salvando clientes");
-      Cliente fulano = new Cliente("Fulano");
-      clientes.save(fulano);
-
-      Pedido p = new Pedido();
-      p.setCliente(fulano);
-      p.setDataPedido(LocalDate.now());
-      p.setTotal(BigDecimal.valueOf(100));
-
-      pedidos.save(p);
-    
-    };
-  }
-
   public static void main(String[] args) {
     SpringApplication.run(VendasApplication.class, args);
     System.out.println("Hello");
