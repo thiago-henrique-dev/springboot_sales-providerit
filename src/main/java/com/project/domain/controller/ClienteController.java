@@ -4,7 +4,9 @@ import com.project.domain.entity.Cliente;
 import com.project.domain.repository.Clientes;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +39,17 @@ public class ClienteController {
     return ResponseEntity.ok(clienteSalvo);
   }
 
-  @GetMapping("/api/clientes")
-  @ResponseBody
-  public ResponseEntity<List<Cliente>> getTodosClientes() {
-    List<Cliente> clientes = this.clientes.findAll();
+//   @GetMapping("/api/clientes")
+//   @ResponseBody
+//   public ResponseEntity<List<Cliente>> getTodosClientes() {
+//     List<Cliente> clientes = this.clientes.findAll();
 
-    if (clientes.isEmpty()) {
-      return ResponseEntity.noContent().build();
-    }
+//     if (clientes.isEmpty()) {
+//       return ResponseEntity.noContent().build();
+//     }
 
-    return ResponseEntity.ok(clientes);
-  }
+//     return ResponseEntity.ok(clientes);
+//   }
 
   @DeleteMapping("/api/clientes/{id}")
   @ResponseBody
@@ -74,4 +76,17 @@ public class ClienteController {
           .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
+  @GetMapping("/api/clientes")
+  public ResponseEntity<List<Cliente>> find( Cliente filtro ){
+    ExampleMatcher matcher = ExampleMatcher
+                                .matching()
+                                .withIgnoreCase()
+                                .withStringMatcher(
+                                        ExampleMatcher.StringMatcher.CONTAINING );
+
+    Example<Cliente> example = Example.of(filtro, matcher);
+    List<Cliente> lista = this.clientes.findAll(example);
+    return ResponseEntity.ok(lista);
 }
+    
+}   
