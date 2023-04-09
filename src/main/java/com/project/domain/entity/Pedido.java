@@ -1,6 +1,7 @@
 package com.project.domain.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -31,6 +33,18 @@ public class Pedido {
 
     @Column(name = "total", length = 20, precision = 2)
     private BigDecimal total;
+
+    
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itens;
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
 
     public Integer getId() {
         return id;
