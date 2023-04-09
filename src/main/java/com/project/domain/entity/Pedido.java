@@ -22,6 +22,7 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne
@@ -31,7 +32,7 @@ public class Pedido {
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    @Column(name = "total", length = 20, precision = 2)
+    @Column(name = "total", length = 20, scale = 2)
     private BigDecimal total;
 
     
@@ -49,6 +50,7 @@ public class Pedido {
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -59,12 +61,12 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public LocalDate getData() {
+    public LocalDate getDataPedido() {
         return dataPedido;
     }
 
-    public void setData(LocalDate data) {
-        this.dataPedido = data;
+    public void setDataPedido(LocalDate dataPedido) {
+        this.dataPedido = dataPedido;
     }
 
     public BigDecimal getTotal() {
@@ -75,4 +77,12 @@ public class Pedido {
         this.total = total;
     }
 
+    @Override
+    public String toString() {
+        return "Pedido {" +
+                "id=" + id +
+                ", dataPedido=" + dataPedido +
+                ", total=" + total +
+                '}';
+    }
 }

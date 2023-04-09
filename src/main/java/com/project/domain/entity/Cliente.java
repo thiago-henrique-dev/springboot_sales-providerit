@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,10 +19,11 @@ public class Cliente {
     @GeneratedValue( strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+    
     @Column(name = "nome", length = 100)
     private String nome;
 
-    @OneToMany( mappedBy = "cliente")
+    @OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
     
     public Cliente() {
